@@ -16,7 +16,7 @@ interface Product {
   id: number;
   name: string;
   price: number;
-  old_price?: number;
+  old_price?: number | null;
   image: string;
   is_new: boolean;
   in_stock: boolean;
@@ -27,25 +27,30 @@ const Products = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("newest");
+  const [loading, setLoading] = useState(true);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get("http://127.0.0.1:8000/api/product/products/");
+      setAllProducts(res.data);
+    } catch (err) {
+      console.error("❌ Failed to load products:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get("http://127.0.0.1:8000/api/product/products/");
-        setAllProducts(res.data);
-      } catch (err) {
-        console.error("❌ Failed to load products:", err);
-      }
-    };
-
     fetchProducts();
-    const interval = setInterval(fetchProducts, 2000); // обновление каждые 5 сек
+    // 🔁 Можно убрать слишком частое обновление, чтобы не нагружать сервер
+    const interval = setInterval(fetchProducts, 10000);
     return () => clearInterval(interval);
   }, []);
 
+  // 🔍 Фильтрация + сортировка
   const filteredProducts = allProducts
     .filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      product.name?.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .sort((a, b) => {
       if (sortBy === "price-low") return a.price - b.price;
@@ -72,7 +77,7 @@ const Products = () => {
             Qo‘l mehnati bilan yaratilgan noyob mahsulotlar
           </p>
 
-          {/* 🔍 Filters */}
+          {/* 🔍 Qidirish va Saralash */}
           <div className="flex flex-col sm:flex-row gap-4 mb-10">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -95,8 +100,14 @@ const Products = () => {
             </Select>
           </div>
 
-          {/* 🛍️ Products Grid */}
-          {filteredProducts.length > 0 ? (
+          {/* 🛍️ Mahsulotlar ro‘yxati */}
+          {loading ? (
+            <div className="text-center py-20">
+              <p className="text-xl sm:text-2xl text-muted-foreground">
+                Mahsulotlar yuklanmoqda...
+              </p>
+            </div>
+          ) : filteredProducts.length > 0 ? (
             <div
               className="
                 grid gap-5
@@ -108,7 +119,16 @@ const Products = () => {
               "
             >
               {filteredProducts.map((product) => (
-                <ProductCard key={product.id} {...product} />
+                <ProductCard
+                  key={product.id}
+                  id={String(product.id)}
+                  name={product.name}
+                  price={product.price}
+                  old_price={product.old_price}
+                  image={product.image}
+                  is_new={product.is_new}
+                  in_stock={product.in_stock}
+                />
               ))}
             </div>
           ) : (

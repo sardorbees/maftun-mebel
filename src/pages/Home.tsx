@@ -36,7 +36,6 @@ const Home = () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/api/product/products/");
       setProducts(res.data);
-      console.log("📦 Загруженные продукты:", res.data); // ✅ Показывает данные при каждом запросе
     } catch (err) {
       console.error("Ошибка загрузки:", err);
     } finally {
@@ -49,11 +48,6 @@ const Home = () => {
     const interval = setInterval(fetchProducts, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  // ✅ Показывает текущее состояние массива products после каждого обновления
-  useEffect(() => {
-    console.log("🔄 Состояние products обновлено:", products);
-  }, [products]);
 
   const heroSlides = [
     { title: "Bizning mebellar", image: one, ctaLink: "/products" },
@@ -78,6 +72,7 @@ const Home = () => {
                 style={{ backgroundImage: `url(${slide.image})` }}
               >
                 <div className="absolute inset-0 bg-black/40" />
+
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -87,6 +82,7 @@ const Home = () => {
                   <h1 className="text-3xl sm:text-4xl md:text-6xl font-serif font-bold text-white mb-4 drop-shadow-lg">
                     {t(slide.title)}
                   </h1>
+
                   <Link to={slide.ctaLink}>
                     <Button size="lg" className="mt-4 group bg-white text-black hover:bg-gray-100">
                       {t("home.hero.cta", "Katalogga o‘tish")}
@@ -135,7 +131,6 @@ const Home = () => {
                   key={product.id}
                   id={String(product.id)}
                   name={product.name}
-                  slug={product.slug}
                   price={product.price}
                   old_price={product.old_price}
                   image={product.image}
