@@ -1,0 +1,300 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Artisan-inspired color palette */
+    --background: 35 40% 97%;
+    --foreground: 25 35% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 25 35% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 35% 20%;
+
+    /* Terracotta/burnt orange primary */
+    --primary: 15 75% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 15 85% 65%;
+
+    /* Sage green secondary */
+    --secondary: 140 25% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted cream tones */
+    --muted: 35 30% 92%;
+    --muted-foreground: 25 25% 45%;
+
+    /* Gold/bronze accent */
+    --accent: 40 60% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 15 75% 55%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(15 75% 55%), hsl(15 85% 65%));
+    --gradient-warm: linear-gradient(180deg, hsl(35 40% 97%), hsl(35 30% 92%));
+
+    /* Shadows */
+    --shadow-artisan: 0 10px 40px -10px hsl(15 75% 55% / 0.2);
+    --shadow-soft: 0 4px 20px -4px hsl(25 35% 20% / 0.1);
+  }
+
+  .dark {
+    /* Dark mode with warm undertones */
+    --background: 25 20% 12%;
+    --foreground: 35 30% 92%;
+
+    --card: 25 18% 16%;
+    --card-foreground: 35 30% 92%;
+
+    --popover: 25 18% 16%;
+    --popover-foreground: 35 30% 92%;
+
+    --primary: 15 75% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 15 85% 65%;
+
+    --secondary: 140 20% 40%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 25 15% 20%;
+    --muted-foreground: 35 20% 65%;
+
+    --accent: 40 55% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 15% 24%;
+    --input: 25 15% 24%;
+    --ring: 15 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Artisan-inspired color palette */
+    --foreground: 25 35% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 25 35% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 35% 20%;
+
+    /* Terracotta/burnt orange primary */
+    --primary: 15 75% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 15 85% 65%;
+
+    /* Sage green secondary */
+    --secondary: 140 25% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted cream tones */
+    --muted: 35 30% 92%;
+    --muted-foreground: 25 25% 45%;
+
+    /* Gold/bronze accent */
+    --accent: 40 60% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 15 75% 55%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(15 75% 55%), hsl(15 85% 65%));
+    --gradient-warm: linear-gradient(180deg, hsl(35 40% 97%), hsl(35 30% 92%));
+
+    /* Shadows */
+    --shadow-artisan: 0 10px 40px -10px hsl(15 75% 55% / 0.2);
+    --shadow-soft: 0 4px 20px -4px hsl(25 35% 20% / 0.1);
+  }
+
+  .dark {
+    /* Dark mode with warm undertones */
+    --background: 25 20% 12%;
+    --foreground: 35 30% 92%;
+
+    --card: 25 18% 16%;
+    --card-foreground: 35 30% 92%;
+
+    --popover: 25 18% 16%;
+    --popover-foreground: 35 30% 92%;
+
+    --primary: 15 75% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 15 85% 65%;
+
+    --secondary: 140 20% 40%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 25 15% 20%;
+    --muted-foreground: 35 20% 65%;
+
+    --accent: 40 55% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 15% 24%;
+    --input: 25 15% 24%;
+    --ring: 15 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.border {
+  border: none;
+}
+
+.min-h-screen {
+  min-height: 75vh;
+}
