@@ -35,9 +35,9 @@ export const Footer = () => {
               <Link to="/image-gallery" className="text-muted-foreground hover:text-primary transition-colors">
                 {t("nav.imageGallery")}
               </Link>
-              <Link to="/certificates" className="text-muted-foreground hover:text-primary transition-colors">
+              {/* <Link to="/certificates" className="text-muted-foreground hover:text-primary transition-colors">
                 {t("nav.certificates")}
-              </Link>
+              </Link> */}
             </nav>
           </div>
 

@@ -36,7 +36,7 @@ const Cart = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          customer_name: customerName,
+          customer_name: customerName,  
           customer_phone: customerPhone,
           customer_address: customerAddress,
           total_price: total.toString(),

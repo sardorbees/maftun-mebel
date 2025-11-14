@@ -1,43 +1,30 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import axios from "axios";
+
+import img1 from "../components/assets/img/img/one.jpg";
+import img2 from "../components/assets/img/img/two.jpg";
+import img3 from "../components/assets/img/img/three.jpg";
+import img4 from "../components/assets/img/img/four.jpg";
+import img5 from "../components/assets/img/img/five.jpg";
+import img6 from "../components/assets/img/img/six.jpg";
 
 interface GalleryImage {
   id: number;
   image: string;
-  created_at: string;
 }
 
+const localImages: GalleryImage[] = [
+  { id: 1, image: img1 },
+  { id: 2, image: img2 },
+  { id: 3, image: img3 },
+  { id: 4, image: img4 },
+  { id: 5, image: img5 },
+  { id: 6, image: img6 },
+];
+
 const ImageGallery = () => {
-  const [images, setImages] = useState<GalleryImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  const fetchImages = () => {
-    axios
-      .get<GalleryImage[]>("http://127.0.0.1:8000/api/img/images/")
-      .then((res) => setImages(res.data))
-      .catch((err) => console.error("Ошибка загрузки изображений:", err))
-      .finally(() => setLoading(false));
-  };
-
-  useEffect(() => {
-    // Сразу загружаем изображения
-    fetchImages();
-
-    // Интервал для автообновления каждую секунду
-    const interval = setInterval(() => {
-      fetchImages();
-    }, 1000);
-
-    // Очистка интервала при размонтировании
-    return () => clearInterval(interval);
-  }, []);
-
-  if (loading) {
-    return <p className="text-center mt-20">Загрузка изображений...</p>;
-  }
 
   return (
     <div className="min-h-screen py-12">
@@ -50,13 +37,10 @@ const ImageGallery = () => {
           <h1 className="text-5xl font-serif font-bold mb-6 text-center">
             Rasm Gallery
           </h1>
-          <p className="text-xl text-muted-foreground text-center mb-12">
-            Mahsulotlar va ustaxona fotosuratlari
-          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {images.map((img, index) => (
-              <motion.div
+            {localImages.map((img, index) => (
+              <motion.div 
                 key={img.id}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -66,7 +50,7 @@ const ImageGallery = () => {
               >
                 <img
                   src={img.image}
-                  alt={`Gallery ${index + 1}`}
+                  alt="gallery"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </motion.div>
@@ -75,10 +59,7 @@ const ImageGallery = () => {
         </motion.div>
       </div>
 
-      <Dialog
-        open={!!selectedImage}
-        onOpenChange={() => setSelectedImage(null)}
-      >
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent className="max-w-4xl">
           {selectedImage && (
             <img

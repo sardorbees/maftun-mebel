@@ -1,49 +1,32 @@
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Play } from "lucide-react";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import '../components/assets/css/media.css'
+import '../components/assets/css/media.css';
+
+// 🎥 Импорт локальных файлов
+import video1 from "../components/assets/img/video/one.mp4";
+import video2 from "../components/assets/img/video/two.mp4";
+import video3 from "../components/assets/img/video/three.mp4";
+import video4 from "../components/assets/img/video/four.mp4";
 
 interface Video {
   id: string;
   title: string;
-  thumbnail?: string;
-  duration?: string;
-  video: string; // URL самого видео
+  video: string;
 }
 
 const VideoGallery = () => {
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
-  // Функция для загрузки видео
-  const fetchVideos = () => {
-    axios
-      .get<Video[]>("http://127.0.0.1:8000/api/video/videos/")
-      .then((res) => setVideos(res.data))
-      .catch((err) => console.error("Ошибка загрузки видео:", err))
-      .finally(() => setLoading(false));
-  };
-
-  useEffect(() => {
-    // Сразу загружаем видео
-    fetchVideos();
-
-    // Устанавливаем интервал для автообновления каждую секунду
-    const interval = setInterval(() => {
-      fetchVideos();
-    }, 1000);
-
-    // Очистка интервала при размонтировании
-    return () => clearInterval(interval);
-  }, []);
-
-  if (loading) {
-    return <p className="text-center mt-20">Загрузка видео...</p>;
-  }
+  // 🎥 Локальные видео
+  const videos: Video[] = [
+    { id: "1", title: "Ustaxona 1", video: video1 },
+    { id: "2", title: "Jarayon 2", video: video2 },
+    { id: "3", title: "Ishlab chiqarish 3", video: video3 },
+    { id: "4", title: "Ishlab chiqarish 3", video: video4 },
+  ];
 
   return (
     <div className="min-h-screen py-12">
@@ -76,10 +59,10 @@ const VideoGallery = () => {
                     <video
                       src={video.video}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
+                      // muted
+                      // loop
+                      // playsInline
+                      // autoPlay
                     />
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors flex items-center justify-center">
                       <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -111,8 +94,7 @@ const VideoGallery = () => {
               src={selectedVideo.video}
               controls
               autoPlay
-              style={{ background: 'none' }}
-              className="w-fulle h-auto rounded-lg"
+              className="w-full h-auto rounded-lg"
             />
           )}
         </DialogContent>
