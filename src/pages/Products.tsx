@@ -1,95 +1,132 @@
 import { motion } from "framer-motion";
 import { ProductCard } from "@/components/ProductCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
-import axios from "axios";
+import one from '../components/assets/img/product/one.jpg'
+import two from '../components/assets/img/product/two.jpg'
+import three from '../components/assets/img/product/three.jpg'
+import four from '../components/assets/img/product/four.jpg'
+import five from '../components/assets/img/product/five.jpg'
+import six from '../components/assets/img/product/six.jpg'
+import seven from '../components/assets/img/product/seven.jpg'
+import eight from '../components/assets/img/product/eight.jpg'
+import nine from '../components/assets/img/product/nine.jpg'
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  old_price?: number | null;
-  image: string;
-  is_new: boolean;
-  in_stock: boolean;
-  created_at: string;
-}
+const allProducts = [
+  {
+    id: "1",
+    name: "Купе 240×120×59 см",
+    price: 2150000,
+    oldPrice: 550000,
+    image: one,
+    isNew: true,
+    inStock: true,
+  },
+  {
+    id: "2",
+    name: "Купе 250×150×59 см",
+    price: 2500000,
+    image: two,
+    isNew: true,
+    inStock: true,
+  },
+  {
+    id: "3",
+    name: "Купе 240×180×59 см",
+    price: 2800000,
+    image: three,
+    inStock: true,
+  },
+  {
+    id: "4",
+    name: "Шкаф 4 эшикли 240×160×49 см",
+    price: 2600000,
+    oldPrice: 2600000,
+    image: four,
+    inStock: true,
+  },
+  {
+    id: "5",
+    name: "Шкаф 3 эшикли  Размери:250×135×49 см",
+    price: 2200000,
+    image: five,
+    inStock: true,
+  },
+  {
+    id: "6",
+    name: "Шкаф 240×120×49 см",
+    price: 2100000,
+    image: six,
+    inStock: false,
+  },
+  {
+    id: "7",
+    name: "Купе 200×180×59 см",
+    price: 2200000,
+    image: seven,
+    isNew: true,
+    inStock: true,
+  },
+  {
+    id: "8",
+    name: "Купе 200×180×59 см",
+    price: 2200000,
+    image: eight,
+    inStock: true,
+  },
+  {
+    id: "9",
+    name: "Шкаф 4 - эшикли 200×160×49 см",
+    price: 2100000,
+    image: nine,
+    inStock: true,
+  },
+];
 
 const Products = () => {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("newest");
-  const [loading, setLoading] = useState(true);
 
-  const fetchProducts = async () => {
-    try {
-      const res = await axios.get("http://127.0.0.1:8000/api/product/products/");
-      setAllProducts(res.data);
-    } catch (err) {
-      console.error("❌ Failed to load products:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-    // 🔁 Можно убрать слишком частое обновление, чтобы не нагружать сервер
-    const interval = setInterval(fetchProducts, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // 🔍 Фильтрация + сортировка
   const filteredProducts = allProducts
     .filter((product) =>
-      product.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .sort((a, b) => {
       if (sortBy === "price-low") return a.price - b.price;
       if (sortBy === "price-high") return b.price - a.price;
-      if (sortBy === "newest")
-        return (
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        );
       return 0;
     });
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-7xl mx-auto w-full">
+    <div className="min-h-screen py-12">
+      <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-4 text-center">
+          <h1 className="text-5xl font-serif font-bold mb-6 text-center">
             Mahsulotlar
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground text-center mb-8 sm:mb-12">
-            Qo‘l mehnati bilan yaratilgan noyob mahsulotlar
+          <p className="text-xl text-muted-foreground text-center mb-12">
+            Qo'l mehnati bilan yaratilgan noyob mahsulotlar
           </p>
 
-          {/* 🔍 Qidirish va Saralash */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-10">
+          {/* Filters */}
+          <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 placeholder="Mahsulotlarni qidirish..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 h-11 text-base sm:text-sm"
+                className="pl-10"
               />
             </div>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full sm:w-[200px] h-11 text-base sm:text-sm">
+              <SelectTrigger className="w-full md:w-[200px]">
                 <SelectValue placeholder="Saralash" />
               </SelectTrigger>
               <SelectContent>
@@ -100,41 +137,17 @@ const Products = () => {
             </Select>
           </div>
 
-          {/* 🛍️ Mahsulotlar ro‘yxati */}
-          {loading ? (
-            <div className="text-center py-20">
-              <p className="text-xl sm:text-2xl text-muted-foreground">
-                Mahsulotlar yuklanmoqda...
-              </p>
-            </div>
-          ) : filteredProducts.length > 0 ? (
-            <div
-              className="
-                grid gap-5
-                grid-cols-1
-                sm:grid-cols-2
-                md:grid-cols-3
-                lg:grid-cols-4
-                xl:grid-cols-5
-              "
-            >
+          {/* Products Grid */}
+          {filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  id={String(product.id)}
-                  name={product.name}
-                  price={product.price}
-                  old_price={product.old_price}
-                  image={product.image}
-                  is_new={product.is_new}
-                  in_stock={product.in_stock}
-                />
+                <ProductCard key={product.id} {...product} />
               ))}
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-xl sm:text-2xl text-muted-foreground">
-                Hech qanday mahsulot topilmadi 😔
+              <p className="text-xl text-muted-foreground">
+                Hech qanday mahsulot topilmadi
               </p>
             </div>
           )}
