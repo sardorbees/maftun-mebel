@@ -26,50 +26,60 @@ const Contact = () => {
   const [isBlocked, setIsBlocked] = useState(false);
 
   // Проверка блокировки повторной отправки
-  useEffect(() => {
-    const lastSent = localStorage.getItem("lastApplicationSent");
-    if (lastSent) {
-      const diff = Date.now() - parseInt(lastSent);
-      if (diff < 10 * 60 * 1000) {
-        setIsBlocked(true);
-        const remaining = 10 - Math.floor(diff / 60000);
-        setStatusMessage(`⏳ Вы уже отправляли заявку. Попробуйте через ${remaining} минут.`);
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   const lastSent = localStorage.getItem("lastApplicationSent");
+  //   if (lastSent) {
+  //     const diff = Date.now() - parseInt(lastSent);
+  //     if (diff < 10 * 60 * 1000) {
+  //       setIsBlocked(true);
+  //       const remaining = 10 - Math.floor(diff / 60000);
+  //       setStatusMessage(`⏳ Вы уже отправляли  заявку. Попробуйте через ${remaining} минут.`);
+  //     }
+  //   }
+  // }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const lastSent = localStorage.getItem("lastApplicationSent");
-    const now = Date.now();
-
-    if (lastSent && now - parseInt(lastSent) < 10 * 60 * 1000) {
-      const minutesLeft = Math.ceil((10 * 60 * 1000 - (now - parseInt(lastSent))) / 60000);
-      setStatusMessage(`⏳ Вы уже отправляли заявку. Повторите через ${minutesLeft} мин.`);
-      return;
-    }
-
     setIsSubmitting(true);
     setStatusMessage("");
 
+    const BOT_TOKEN = "8455589037:AAEB271gLar71WT025uJKUPuZCcQIvfUD0k";
+    const CHAT_ID = "@maftunmebel"; // группа или пользователь
+
+    const text = `
+📩 Новая заявка:
+👤 Имя: ${formData.full_name}
+📞 Телефон: ${formData.phone}
+❓ Вопрос: ${formData.question}
+`;
+
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/applicationapplications/", formData);
-      if (response.status === 201) {
-        setStatusMessage("✅ Ваша заявка успешно отправлена!");
-        setFormData({ full_name: "", phone: "", question: "" });
-        localStorage.setItem("lastApplicationSent", now.toString());
-        toast.success("✅ Ваша заявка успешно отправлена!");
-        setIsBlocked(true);
-      }
-    } catch (error) {
-      console.error(error);
-      setStatusMessage("❌ Ошибка при отправке. Попробуйте позже.");
-      toast.error("❌ Ошибка при отправке. Попробуйте позже.");
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+        }),
+      });
+
+      toast.success("Заявка отправлена!");
+      setStatusMessage("✅ Ваша заявка успешно отправлена!");
+
+      setFormData({ full_name: "", phone: "", question: "" });
+
+    } catch (err) {
+      console.error(err);
+      toast.error("Ошибка отправки");
+      setStatusMessage("❌ Ошибка при отправке.");
     } finally {
       setIsSubmitting(false);
     }
   };
+
 
   return (
     <div className="container mx-auto px-4 py-16">
