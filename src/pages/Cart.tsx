@@ -182,7 +182,7 @@ ${itemsText}
             {items.map((item) => (
               <Card key={item.id}>
                 <CardContent className="p-4">
-                  <div className="flex gap-4">
+                  <div className="flexe gap-4">
                     <img
                       src={item.image}
                       alt={item.name}
@@ -264,13 +264,13 @@ ${itemsText}
           {/* Total + Checkout */}
           <Card className="bg-muted/50">
             <CardContent className="p-6">
-              <div className="flex justify-between items-center text-2xl font-bold mb-6">
+              <div className="flexe justify-between items-center text-2xl font-bold mb-6">
                 <span>{t("cart.total")}:</span>
                 <span className="text-primary">
                   {total.toLocaleString()} so'm
                 </span>
               </div>
-              <div className="flex gap-4">
+              <div className="flexe gap-4">
                 <Link to="/products" className="flex-1">
                   <Button variant="outline" className="w-full">
                     {t("cart.continueShopping")}

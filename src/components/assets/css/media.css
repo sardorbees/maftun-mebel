@@ -152,3 +152,71 @@
     height: 100vh;
     background-repeat: no-repeat;
 }
+
+/* media.css */
+
+/* Общие стили для Hero Banner */
+.hero-banner {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+    /* прозрачность баннера */
+    z-index: 0;
+}
+
+.hero-banner-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    /* растянуть по всему блоку */
+    background-position: center;
+    /* центрировать изображение */
+    background-repeat: no-repeat;
+}
+
+/* Адаптивность для мобильных устройств (до 640px) */
+@media (max-width: 640px) {
+    .hero-banner-bg {
+        background-size: cover;
+        /* сохраняем cover */
+        background-position: top center;
+        /* центрируем по горизонтали, сверху по вертикали */
+    }
+}
+
+/* Планшеты (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .hero-banner-bg {
+        background-size: cover;
+        background-position: center center;
+    }
+}
+
+/* Десктопы (1025px и выше) */
+@media (min-width: 1025px) {
+    .hero-banner-bg {
+        background-size: cover;
+        background-position: center center;
+    }
+}
+
+@media (max-width: 420px) {
+    .hero-banner-bg {
+        background-size: cover;
+        background-position: top center;
+        /* поднимаем изображение для маленьких экранов */
+    }
+}
+
+/* Для устройств шириной 342px и меньше */
+@media (max-width: 342px) {
+    .hero-banner-bg {
+        background-size: cover;
+        background-position: top center;
+    }
+}
+
+.flexe {
+    display: flex;
+    flex-wrap: wrap;
+}

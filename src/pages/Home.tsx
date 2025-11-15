@@ -59,7 +59,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden bg-gradient-warm">
+      <section className="relative h-[70vh] min-h-[400px] flex items-center justify-center overflow-hidden bg-gradient-warm">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -81,9 +81,9 @@ const Home = () => {
         </motion.div>
 
         {/* Decorative background pattern */}
-        <div className="absolute inset-0 opacity-50">
+        <div className="absolute inset-0 opacity-50 hero-banner">
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center hero-banner-bg"
             style={{
               backgroundImage: `url(${banner})`,
             }}
@@ -99,7 +99,7 @@ const Home = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex justify-between items-center mb-12">
+          <div className="flexe justify-between items-center mb-12">
             <h2 className="text-4xl font-serif font-bold">{t("home.featured")}</h2>
             <Link to="/products">
               <Button variant="ghost" className="group">
