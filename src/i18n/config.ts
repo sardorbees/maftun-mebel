@@ -16,7 +16,7 @@ const resources = {
       },
       home: {
         hero: {
-          title: "Qo'l mehnati san'ati",
+          title: "Maftun-Mebel",
           subtitle: "Mahsulotlarning sifati ularning arzonligi bilan afzalliklarga ega.",
           cta: "Mahsulotlarni ko'rish",
         },
@@ -58,7 +58,7 @@ const resources = {
       },
       home: {
         hero: {
-          title: "Искусство ручной работы",
+          title: "Maftun-Mebel",
           subtitle: "Качество продукции выгодно сочетается с ее низкой ценой.",
           cta: "Смотреть продукты",
         },
@@ -100,7 +100,7 @@ const resources = {
       },
       home: {
         hero: {
-          title: "Artisan Craftsmanship",
+          title: "Maftun-Mebel",
           subtitle: "Each piece is a unique creation made with love and mastery",
           cta: "View Products",
         },
