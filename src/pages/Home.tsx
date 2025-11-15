@@ -8,6 +8,9 @@ import one from '../components/assets/img/product/one.jpg'
 import two from '../components/assets/img/product/two.jpg'
 import three from '../components/assets/img/product/three.jpg'
 import four from '../components/assets/img/product/four.jpg'
+import "swiper/css";
+import "swiper/css/pagination";
+import banner from '../components/assets/img/product/banner.webp';
 
 // Mock featured products
 const featuredProducts = [
@@ -45,6 +48,11 @@ const featuredProducts = [
   },
 ];
 
+const slides = [
+  "/images/hero1.jpg", // путь к первой картинке
+  "/images/hero2.jpg", // путь ко второй картинке
+];
+
 const Home = () => {
   const { t } = useTranslation();
 
@@ -73,11 +81,11 @@ const Home = () => {
         </motion.div>
 
         {/* Decorative background pattern */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-50">
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundImage: `url(${banner})`,
             }}
           />
         </div>
