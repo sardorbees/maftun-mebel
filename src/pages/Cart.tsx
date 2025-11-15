@@ -79,7 +79,7 @@ ${itemsText}
       // 2) Save order in backend database
       try {
         await fetch(
-          "http://127.0.0.1:8000/api/order/orders/",
+          "https://maftun-mebel-admin.onrender.com/api/order/orders/",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
