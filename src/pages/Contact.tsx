@@ -203,7 +203,7 @@ const Contact = () => {
         <div className="contact mt-12">
           <div className="map-wrapper">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.7301916877127!2d69.24837617631839!3d41.3147328004983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0e21fe50fb%3A0xb4b0cff7a63ec7e!2z0YPQuy4g0K_QvdCz0Lgg0KLQvtGI0LrQtdC90YIsINCi0LDRiNC60LXQvdGCLCBUYXNoa2VudCwg0KPQt9Cx0LXQutC40YHRgtCw0L0!5e0!3m2!1sru!2s!4v1763020129625!5m2!1sru!2s"
+              src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d6000.536900171679!2d69.460538!3d41.23771!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDE0JzE1LjgiTiA2OcKwMjcnMzcuOSJF!5e0!3m2!1sru!2s!4v1763391411956!5m2!1sru!2s"
               allowFullScreen
               loading="lazy"
               title="Наш офис в Ташкенте"
